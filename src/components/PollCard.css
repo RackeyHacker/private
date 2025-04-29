@@ -1,0 +1,44 @@
+.poll-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  
+  .poll-card h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .poll-card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .poll-card li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .poll-card button {
+    background-color: #28a745;
+  }
+  
+  .poll-card button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .poll-card button:hover {
+    background-color: #218838;
+  }
+  
+  .poll-card span {
+    font-size: 14px;
+    color: #555;
+  }
+  
