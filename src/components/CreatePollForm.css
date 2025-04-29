@@ -1,0 +1,144 @@
+/* Общие стили */
+.create-poll-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.create-poll-form {
+  width: 100%;
+  max-width: 500px; /* Ограничиваем ширину формы */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Светлая тема */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.create-poll-form div {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 5px;
+  color: #333; /* Цвет текста для светлой темы */
+}
+
+/* Стили для всех input */
+input {
+  width: 100%; /* Заставляем поля ввода растягиваться на всю ширину */
+  box-sizing: border-box; /* Учитываем padding и border в ширину */
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff; /* Фон полей ввода для светлой темы */
+  color: #333; /* Цвет текста для светлой темы */
+}
+
+/* Стили для кнопок */
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.add-button,
+.remove-button {
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #007bff; /* Кнопки для светлой темы */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-button:hover,
+.remove-button:hover {
+  background-color: #0056b3; /* Наведение кнопок для светлой темы */
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.submit-button {
+  width: 100%; /* Делаем кнопку той же ширины, что и поля ввода */
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff; /* Кнопка отправки для светлой темы */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px; /* Немного отступа сверху */
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Наведение кнопки отправки для светлой темы */
+}
+
+.option-input-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.option-input-row input {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.delete-option-button {
+  margin-left: 10px;
+  background-color: #f44336; /* Кнопка удаления для светлой темы */
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  height: 100%;
+}
+
+.delete-option-button:hover {
+  background-color: #d32f2f;
+}
+
+body.dark .create-poll-form {
+  background-color: #2d2d2d;
+  border-color: #444;
+}
+
+body.dark label {
+  color: #e0e0e0;
+}
+
+body.dark input {
+  background-color: #333;
+  border-color: #444;
+  color: #fff;
+}
+
+body.dark .add-button,
+body.dark .remove-button {
+  background-color: #0056b3;
+}
+
+body.dark .submit-button {
+  background-color: #0056b3;
+}
+
+body.dark .delete-option-button {
+  background-color: #d32f2f;
+}
