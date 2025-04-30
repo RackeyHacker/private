@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: process.env.NODE_ENV === 'production' ? '/poll-platform/' : '/',  // '/poll-platform/'
+    publicPath: process.env.NODE_ENV === 'production' ? '/private/' : '/',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
