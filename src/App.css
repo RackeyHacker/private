@@ -260,13 +260,3 @@ body.dark .theme-toggle {
     font-size: 15px;
   }
 }
-
-@media (max-width: 1366px) {
-  .content {
-    gap: 15px;
-  }
-
-  .poll-card {
-    max-width: 320px;
-  }
-}
