@@ -51,11 +51,13 @@ const App: React.FC = () => {
     setSelectedPoll(poll);
   };
 
-  const handleVote = (optionIndex: number) => {
+  const handleVote = (selectedIndexes: number[]) => {
     if (!selectedPoll || hasVoted) return;
 
     const updatedPoll = { ...selectedPoll };
-    updatedPoll.options[optionIndex].votes += 1;
+    selectedIndexes.forEach(i => {
+      updatedPoll.options[i].votes += 1;
+    });
     setSelectedPoll(updatedPoll);
 
     const updatedPolls = polls.map((poll) =>
@@ -112,7 +114,8 @@ const App: React.FC = () => {
               options={selectedPoll.options}
               onVote={handleVote}
               hasVoted={hasVoted}
-              
+              multipleChoice={selectedPoll.multipleChoice}
+              maxChoices={selectedPoll.maxChoices}
             />
             {hasVoted && (
               <button onClick={resetVote} className="reset-button">
