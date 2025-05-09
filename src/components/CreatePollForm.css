@@ -80,10 +80,6 @@ input {
   margin-top: 10px;
 }
 
-.submit-button:hover {
-  background-color: #0056b3;
-}
-
 .option-input-row {
   display: flex;
   align-items: center;
@@ -112,6 +108,28 @@ input {
   background-color: #d32f2f;
 }
 
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  gap: 8px;
+}
+
+.checkbox-label {
+  cursor: pointer;
+  order: 2;
+}
+
+.checkbox-container input[type="checkbox"] {
+  order: 1;
+  margin: 0;
+}
+
+.max-choices-container input[type="number"] {
+  margin-left: 8px;
+  width: 60px;
+}
+
 body.dark .create-poll-form {
   background-color: #2d2d2d;
   border-color: #444;
@@ -138,4 +156,22 @@ body.dark .submit-button {
 
 body.dark .delete-option-button {
   background-color: #d32f2f;
+}
+
+.multiple-choice-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.multiple-choice-label {
+  font-size: 16px;
+  color: #333;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.multiple-choice-checkbox {
+  margin: 0;
 }
