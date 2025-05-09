@@ -8,7 +8,7 @@ export interface Poll {
   question: string;
   options: PollOption[];
   createdAt: string;
-  deadline?: string;
+  multipleChoice?: boolean;
 }
 
 export type PollList = Poll[];
