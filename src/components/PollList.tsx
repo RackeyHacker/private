@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface PollOption {
   text: string;
@@ -19,6 +20,8 @@ interface PollListProps {
 }
 
 const PollList: React.FC<PollListProps> = ({ polls, onSelect, onDelete }) => {
+  const navigate = useNavigate();
+
   const handleDelete = (pollId: string) => {
     const confirmed = window.confirm('Вы уверены, что хотите удалить это голосование?');
     if (confirmed) {
@@ -39,6 +42,7 @@ const PollList: React.FC<PollListProps> = ({ polls, onSelect, onDelete }) => {
 
   return (
     <div className="poll-list">
+      <button onClick={() => navigate(-1)} className="back-button">← Назад</button>
       <h3>Ваши голосования</h3>
       {polls.map((poll) => (
         <div key={poll.id} className="poll-item">

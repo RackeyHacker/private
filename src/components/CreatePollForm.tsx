@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Poll } from '../types/Poll';
 import './CreatePollForm.css';
 
@@ -7,6 +8,7 @@ interface CreatePollFormProps {
 }
 
 const CreatePollForm: React.FC<CreatePollFormProps> = ({ onCreate }) => {
+  const navigate = useNavigate();
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   const [multipleChoice, setMultipleChoice] = useState(false);
@@ -63,6 +65,7 @@ const CreatePollForm: React.FC<CreatePollFormProps> = ({ onCreate }) => {
     setOptions(['', '']);
     setMultipleChoice(false);
     setMaxChoices(1);
+    navigate('/polls');
   };
 
   return (
@@ -143,6 +146,12 @@ const CreatePollForm: React.FC<CreatePollFormProps> = ({ onCreate }) => {
         <div className="submit-container">
           <button type="submit" className="submit-button">
             Создать голосование
+          </button>
+        </div>
+
+        <div className="back-container">
+          <button type="button" onClick={() => navigate(-1)} className="back-button">
+            ← Назад
           </button>
         </div>
       </form>

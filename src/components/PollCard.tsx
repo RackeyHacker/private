@@ -62,7 +62,11 @@ const PollCard: React.FC<PollCardProps> = ({ question, options, onVote, hasVoted
       {!hasVoted && (
         <button onClick={handleVoteSubmit} className="vote-button">Проголосовать</button>
       )}
-      {hasVoted && <p>Спасибо за ваш голос!</p>}
+      {hasVoted && (
+        <div className="vote-thank-you">
+          Спасибо за голос!
+        </div>
+      )}
     </div>
   );
 };

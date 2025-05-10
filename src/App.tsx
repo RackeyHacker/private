@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import PollCard from './components/PollCard';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import CreatePollForm from './components/CreatePollForm';
 import PollList from './components/PollList';
+import PollCard from './components/PollCard';
 import { Poll, PollList as PollListType } from './types/Poll';
 import './App.css';
 
@@ -15,15 +17,10 @@ const App: React.FC = () => {
   const [selectedPoll, setSelectedPoll] = useState<Poll | null>(null);
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     const savedTheme = localStorage.getItem('darkMode');
-    if (savedTheme !== null) {
-      return savedTheme === 'true';
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return savedTheme !== null ? savedTheme === 'true' : window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
-  const hasVoted = selectedPoll
-    ? localStorage.getItem(`hasVoted_${selectedPoll.id}`) === 'true'
-    : false;
+  const hasVoted = selectedPoll ? localStorage.getItem(`hasVoted_${selectedPoll.id}`) === 'true' : false;
 
   useEffect(() => {
     localStorage.setItem('polls', JSON.stringify(polls));
@@ -38,9 +35,7 @@ const App: React.FC = () => {
     localStorage.setItem('darkMode', String(darkMode));
   }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const handleCreatePoll = (newPoll: Poll) => {
     setPolls([...polls, newPoll]);
@@ -53,79 +48,63 @@ const App: React.FC = () => {
 
   const handleVote = (selectedIndexes: number[]) => {
     if (!selectedPoll || hasVoted) return;
-
     const updatedPoll = { ...selectedPoll };
-    selectedIndexes.forEach(i => {
-      updatedPoll.options[i].votes += 1;
-    });
+    selectedIndexes.forEach(i => updatedPoll.options[i].votes += 1);
     setSelectedPoll(updatedPoll);
-
-    const updatedPolls = polls.map((poll) =>
-      poll.id === updatedPoll.id ? updatedPoll : poll
-    );
+    const updatedPolls = polls.map(p => p.id === updatedPoll.id ? updatedPoll : p);
     setPolls(updatedPolls);
-
     localStorage.setItem(`hasVoted_${selectedPoll.id}`, 'true');
   };
 
   const resetVote = () => {
     if (!selectedPoll) return;
-
     const updatedPoll = { ...selectedPoll };
-    updatedPoll.options.forEach((option) => (option.votes = 0));
+    updatedPoll.options.forEach(opt => opt.votes = 0);
     setSelectedPoll(updatedPoll);
-
-    const updatedPolls = polls.map((poll) =>
-      poll.id === updatedPoll.id ? updatedPoll : poll
-    );
+    const updatedPolls = polls.map(p => p.id === updatedPoll.id ? updatedPoll : p);
     setPolls(updatedPolls);
-
     localStorage.removeItem(`hasVoted_${selectedPoll.id}`);
   };
 
   const handleDeletePoll = (pollId: string) => {
-    const updatedPolls = polls.filter((poll) => poll.id !== pollId);
-    setPolls(updatedPolls);
-
-    if (selectedPoll?.id === pollId) {
-      setSelectedPoll(null);
-    }
-
+    setPolls(polls.filter(p => p.id !== pollId));
+    if (selectedPoll?.id === pollId) setSelectedPoll(null);
     localStorage.removeItem(`hasVoted_${pollId}`);
   };
 
   return (
-    <div className="app-container">
-      <button onClick={toggleDarkMode} className="theme-toggle">
-        {darkMode ? '☀️' : '🌙'}
-      </button>
-      <h1 className="header">Платформа для голосования</h1>
-      <div className="content">
-        <CreatePollForm onCreate={handleCreatePoll} />
-        <PollList
-          polls={polls}
-          onSelect={handleSelectPoll}
-          onDelete={handleDeletePoll}
-        />
-        {selectedPoll && (
-          <div className="poll-details">
-            <PollCard
-              question={selectedPoll.question}
-              options={selectedPoll.options}
-              onVote={handleVote}
-              hasVoted={hasVoted}
-              multipleChoice={selectedPoll.multipleChoice}
-              maxChoices={selectedPoll.maxChoices}
-            />
-            {hasVoted && (
-              <button onClick={resetVote} className="reset-button">
-                Отменить голос
-              </button>
-            )}
-          </div>
-        )}
+    <Router>
+      <div className="app-container">
+        <button onClick={toggleDarkMode} className="theme-toggle">
+          {darkMode ? '☀️' : '🌙'}
+        </button>
+        <h1 className="header">Платформа для голосования</h1>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/create" element={<CreatePollForm onCreate={handleCreatePoll} />} />
+          <Route path="/polls" element={
+            <>
+              <PollList polls={polls} onSelect={handleSelectPoll} onDelete={handleDeletePoll} />
+              {selectedPoll && (
+                <div className="poll-details">
+                  <PollCard
+                    question={selectedPoll.question}
+                    options={selectedPoll.options}
+                    onVote={handleVote}
+                    hasVoted={hasVoted}
+                    multipleChoice={selectedPoll.multipleChoice}
+                    maxChoices={selectedPoll.maxChoices}
+                  />
+                  {hasVoted && (
+                    <button onClick={resetVote} className="reset-button">Отменить голос</button>
+                  )}
+                </div>
+              )}
+            </>
+          } />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 };
 
