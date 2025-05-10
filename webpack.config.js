@@ -1,10 +1,13 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   mode: 'production',
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/private/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/private/' : '/',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
